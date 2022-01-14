@@ -7,7 +7,6 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
-const cors = require('cors');
 
 const auth = require('./middlewares/auth');
 const errorHandling = require('./middlewares/error-handling');
@@ -26,18 +25,9 @@ const app = express();
 app.use(helmet());
 app.use(cookieParser());
 
-/*const rateLimit = require('express-rate-limit');
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-});*/
-
 app.use(limiter);
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect('mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
@@ -46,17 +36,6 @@ mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-/*app.use(cors({
-  origin: [
-    'http://buyanov-dmitriy.students.nomoredomains.work',
-    'https://buyanov-dmitriy.students.nomoredomains.work',
-    'http://api.buyanov.students.nomoredomains.work',
-    'https://api.buyanov.students.nomoredomains.work',
-    'http://localhost:3000',
-  ],
-  credentials: true,
-}));*/
 
 app.use(requestLogger);
 
@@ -78,17 +57,14 @@ app.use(auth);
 
 app.use('/', require('./routes/index'));
 
-/*app.use('/users', require('./routes/users'));
-app.use('/movies', require('./routes/movies'));*/
-
 app.post('/signout', (req, res) => {
   res
     .cookie('jwt', '', {
       httpOnly: true,
-      //sameSite: 'None',
-      //maxAge: -1,
-      //secure: true,
+      maxAge: -1,
     })
+    .status(200)
+    .send({ message: 'Разлогирование успешно' })
     .end();
 });
 
