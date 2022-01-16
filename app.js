@@ -13,8 +13,6 @@ const auth = require('./middlewares/auth');
 const errorHandling = require('./middlewares/error-handling');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const NotFoundError = require('./errors/not-found-err');
-
 const limiter = require('./configurations/apilimit');
 
 const app = express();
@@ -41,10 +39,6 @@ app.use(require('./routes/registration'));
 app.use(auth);
 
 app.use(require('./routes/index'));
-
-app.use('/', (req, res, next) => {
-  next(new NotFoundError('Этой страницы пока нет'));
-});
 
 app.use(errorLogger);
 
