@@ -27,12 +27,12 @@ router.post('/', celebrate({
     thumbnail: Joi.string().required().custom(urlValidate),
     nameRU: Joi.string().required().custom(ruValidate),
     nameEN: Joi.string().required().custom(enValidate),
-    movieId: Joi.string().hex().length(24).required(),
+    movieId: Joi.number().required(),
   }),
 }), addNewMovie);
 router.delete('/:movieId', celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().hex().length(24).required(),
+    movieId: Joi.number().required(),
   }),
 }), deleteMovie);
 

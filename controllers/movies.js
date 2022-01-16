@@ -5,8 +5,7 @@ const ForbiddenError = require('../errors/forbidden-err');
 
 const getAllSavedMovies = (req, res, next) => {
   Movie.find({})
-    .populate('owner')
-    .then((movies) => res.status(200).send({ movies }))
+    .then((movies) => res.send({ movies }))
     .catch(next);
 };
 
@@ -40,7 +39,7 @@ const addNewMovie = (req, res, next) => {
     movieId,
     owner: userId,
   })
-    .then((movie) => res.status(200).send({ movie }))
+    .then((movie) => res.send({ movie }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Переданы некорректные данные при добавлении фильма'));
@@ -62,13 +61,7 @@ const deleteMovie = (req, res, next) => {
       }
       return Movie.findByIdAndRemove(movieId)
         .orFail(() => { throw new NotFoundError('Фильм с указанным _id не найден'); })
-        .then((deletedMovie) => res.status(200).send({ deletedMovie }))
-        .catch((err) => {
-          if (err.name === 'CastError') {
-            return next(new BadRequestError('Передан некорректный _id фильма'));
-          }
-          return next(err);
-        });
+        .then((deletedMovie) => res.send({ deletedMovie }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {

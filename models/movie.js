@@ -14,10 +14,6 @@ const movieSchema = new mongoose.Schema({
   duration: {
     type: Number,
     required: true,
-    validation: {
-      validator: (value) => validator.isNumeric(value),
-      message: 'Это не число',
-    },
   },
   year: {
     type: String,
@@ -57,7 +53,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: String,
+    type: Number,
     required: true,
   },
   nameRU: {
