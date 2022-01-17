@@ -1,1 +1,9 @@
-# movies-explorer-api
+# Дипломная работа
+
+# Этап 2: Бэкенд
+
+## В рамках обучения на Яндекс.Практикум
+
+# Выполнил Буянов Дмитрий
+
+https://api.buyanov-diploma.nomoredomains.rocks
