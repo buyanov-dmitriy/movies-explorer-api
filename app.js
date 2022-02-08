@@ -36,8 +36,8 @@ app.use(express.json());
 
 app.use(cors({
   origin: [
-    'https://buyanov-diploma.nomoredomains.rocks/',
-    'http://buyanov-diploma.nomoredomains.rocks/',
+    'https://buyanov-diploma.nomoredomains.rocks',
+    'http://buyanov-diploma.nomoredomains.rocks',
     'https://api.buyanov-diploma.nomoredomains.rocks',
     'http://api.buyanov-diploma.nomoredomains.rocks',
     'http://localhost:3000',
