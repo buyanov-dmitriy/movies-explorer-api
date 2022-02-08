@@ -7,7 +7,7 @@
     "lint": "npx eslint .",
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "deploy": "scp -r ./* buyanov-diploma@62.84.124.220:/home/buyanov-diploma/movies-explorer-api"
+    "deploy": "scp -r ./* buyanov-diploma@51.250.11.233:/home/buyanov-diploma/movies-explorer-api"
   },
   "author": "BUYANOV DMITRY",
   "license": "ISC",

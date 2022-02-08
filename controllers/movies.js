@@ -4,7 +4,8 @@ const NotFoundError = require('../errors/not-found-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
 const getAllSavedMovies = (req, res, next) => {
-  Movie.find({})
+  const userId = req.user._id;
+  Movie.find({ owner: userId })
     .then((movies) => res.send({ movies }))
     .catch(next);
 };
@@ -24,7 +25,6 @@ const addNewMovie = (req, res, next) => {
     movieId,
   } = req.body;
   const userId = req.user._id;
-
   Movie.create({
     country,
     director,
