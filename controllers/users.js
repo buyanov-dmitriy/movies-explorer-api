@@ -49,7 +49,9 @@ const login = (req, res, next) => {
       res
         .cookie('jwt', token, {
           httpOnly: true,
+          sameSite: 'None',
           maxAge: 600000 * 24 * 7,
+          secure: true,
         })
         .status(200)
         .send({ message: 'Успешный логин' })

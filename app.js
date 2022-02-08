@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const cors = require('cors');
 
 const auth = require('./middlewares/auth');
 const errorHandling = require('./middlewares/error-handling');
@@ -32,6 +33,18 @@ mongoose.connect(database, {
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(cors({
+  origin: [
+    'https://buyanov-diploma.nomoredomains.rocks/',
+    'http://buyanov-diploma.nomoredomains.rocks/',
+    'https://api.buyanov-diploma.nomoredomains.rocks',
+    'http://api.buyanov-diploma.nomoredomains.rocks',
+    'http://localhost:3000',
+    'https://localhost:3000',
+  ],
+  credentials: true,
+}));
 
 app.use(require('./routes/authentication'));
 app.use(require('./routes/registration'));
