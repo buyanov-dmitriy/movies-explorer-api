@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validation: {
       validator: (value) => validator.isURL(value),
-      message: 'Некорректная ссылка',
+      message: 'Incorrect link',
     },
   },
   trailer: {
@@ -36,7 +36,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validation: {
       validator: (value) => validator.isURL(value),
-      message: 'Некорректная ссылка',
+      message: 'Incorrect link',
     },
   },
   thumbnail: {
@@ -44,7 +44,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validation: {
       validator: (value) => validator.isURL(value),
-      message: 'Некорректная ссылка',
+      message: 'Incorrect link',
     },
   },
   owner: {
@@ -69,10 +69,10 @@ const movieSchema = new mongoose.Schema({
 movieSchema.path('nameRU').validate((val) => {
   const ruRegex = /[?!,.а-яА-ЯёЁ0-9\s]+$/;
   return ruRegex.test(val);
-}, 'Это не кириллица');
+}, 'It is not Cyrillic');
 movieSchema.path('nameEN').validate((val) => {
   const enRegex = /[?!,.a-zA-Z0-9\s]+$/;
   return enRegex.test(val);
-}, 'Это не латиница');
+}, 'It is not Latin');
 
 module.exports = mongoose.model('movie', movieSchema);

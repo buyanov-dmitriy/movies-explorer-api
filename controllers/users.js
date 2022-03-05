@@ -28,10 +28,10 @@ const createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
+        return next(new BadRequestError('Incorrect data during user creation'));
       }
       if (err.code === 11000) {
-        return next(new ConflictError('Пользователь с таким email уже существует'));
+        return next(new ConflictError('A user with this email already exists'));
       }
       return next(err);
     });
@@ -54,7 +54,7 @@ const login = (req, res, next) => {
           secure: true,
         })
         .status(200)
-        .send({ message: 'Успешный логин' })
+        .send({ message: 'Logged in' })
         .end();
     })
     .catch(next);
@@ -64,10 +64,10 @@ const getCurrentUser = (req, res, next) => {
   const userId = req.user._id;
 
   User.findById(userId)
-    .orFail(() => { throw new NotFoundError('Пользователь по указанному _id не найден'); })
+    .orFail(() => { throw new NotFoundError('User was not found with the specified _id'); })
     .then((user) => res.send({ user }))
     .catch(() => {
-      const message = 'Пользователь не найден';
+      const message = 'User not found';
       return next(new BadRequestError(message));
     });
 };
@@ -77,14 +77,14 @@ const updateUserProfile = (req, res, next) => {
   const { name, email } = req.body;
 
   User.findByIdAndUpdate(userId, { name, email }, { new: true })
-    .orFail(() => { throw new NotFoundError('Пользователь по указанному _id не найден'); })
+    .orFail(() => { throw new NotFoundError('User was not found with the specified _id'); })
     .then((user) => res.send({ user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
+        return next(new BadRequestError('Incorrect data during user update'));
       }
       if (err.code === 11000) {
-        return next(new ConflictError('Пользователь с таким email уже существует'));
+        return next(new ConflictError('A user with this email already exists'));
       }
       return next(err);
     });

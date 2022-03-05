@@ -5,7 +5,7 @@ const urlValidate = (value, next) => {
   if (result) {
     return value;
   }
-  return next(new Error('Ошибка в валидации ссылки'));
+  return next(new Error('Incorrect link'));
 };
 
 const ruValidate = (value, next) => {
@@ -13,7 +13,7 @@ const ruValidate = (value, next) => {
   if (ruRegex.test(value)) {
     return value;
   }
-  return next(new Error('Ошибка в валидации кириллицы'));
+  return next(new Error('It is not Cyrillic'));
 };
 
 const enValidate = (value, next) => {
@@ -21,7 +21,7 @@ const enValidate = (value, next) => {
   if (enRegex.test(value)) {
     return value;
   }
-  return next(new Error('Ошибка в валидации латиницы'));
+  return next(new Error('It is not Latin'));
 };
 
 module.exports = {

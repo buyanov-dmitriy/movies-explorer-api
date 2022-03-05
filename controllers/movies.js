@@ -42,7 +42,7 @@ const addNewMovie = (req, res, next) => {
     .then((movie) => res.send({ movie }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError('Переданы некорректные данные при добавлении фильма'));
+        return next(new BadRequestError('Incorrect data adding a movie'));
       }
       return next(err);
     });
@@ -53,19 +53,19 @@ const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
 
   Movie.findById(movieId)
-    .orFail(() => { throw new NotFoundError('Фильм с указанным _id не найден'); })
+    .orFail(() => { throw new NotFoundError('Movie with the specified _id not found'); })
     .then((movie) => {
       const { owner } = movie;
       if (String(owner) !== String(userId)) {
-        return next(new ForbiddenError('Нет прав для удаления фильма'));
+        return next(new ForbiddenError('No rights to delete a movie'));
       }
       return Movie.findByIdAndRemove(movieId)
-        .orFail(() => { throw new NotFoundError('Фильм с указанным _id не найден'); })
+        .orFail(() => { throw new NotFoundError('Movie with the specified _id not found'); })
         .then((deletedMovie) => res.send({ deletedMovie }));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequestError('Передан некорректный _id фильма'));
+        return next(new BadRequestError('Incorrect _id of the movie'));
       }
       return next(err);
     });

@@ -9,7 +9,7 @@ router.post('/signout', (req, res) => {
       secure: true,
     })
     .status(200)
-    .send({ message: 'Разлогирование успешно' })
+    .send({ message: 'Logged Out' })
     .end();
 });
 

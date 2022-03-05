@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { PORT = 3000, NODE_ENV, BD_NAME } = process.env;
+const { PORT = 3001, NODE_ENV, BD_NAME } = process.env;
 const database = NODE_ENV === 'production' ? BD_NAME : 'mongodb://localhost:27017/moviesdb';
 
 const express = require('express');
